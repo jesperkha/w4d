@@ -1,4 +1,4 @@
-package models
+package database
 
 type Recipe struct {
 	ID          uint `gorm:"primaryKey"`

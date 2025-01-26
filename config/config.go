@@ -7,7 +7,8 @@ import (
 )
 
 type Config struct {
-	Port string
+	Port   string
+	DbName string
 }
 
 func Load() (config Config, err error) {
@@ -25,7 +26,8 @@ func Load() (config Config, err error) {
 	}
 
 	config = Config{
-		Port: port,
+		Port:   port,
+		DbName: os.Getenv("DB_NAME"),
 	}
 
 	return config, err

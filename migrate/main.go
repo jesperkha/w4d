@@ -7,22 +7,21 @@ import (
 	"os/exec"
 	"time"
 
-	"github.com/jesperkha/w4d/models"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
+	"github.com/jesperkha/w4d/config"
+	"github.com/jesperkha/w4d/database"
 )
 
 func main() {
-	config := gorm.Config{}
-
-	log.Println("Connecting to database...")
-	db, err := gorm.Open(sqlite.Open("dev.db"), &config)
+	config, err := config.Load()
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	log.Println("Connecting to database...")
+	db := database.New(config)
+
 	log.Println("Attempting to migrate...")
-	if err := db.AutoMigrate(&models.Recipe{}); err != nil {
+	if err := db.Migrate(); err != nil {
 		log.Fatal(err)
 	}
 
@@ -31,7 +30,7 @@ func main() {
 	log.Println("Creating database dump...")
 
 	dumpName := fmt.Sprintf("migrate/dumps/%s.sql", time.Now().Local().Format(time.RFC3339Nano))
-	cmd := exec.Command("sqlite3", "dev.db", ".dump recipes")
+	cmd := exec.Command("sqlite3", config.DbName, ".dump recipes")
 
 	file, err := os.Create(dumpName)
 	if err != nil {
