@@ -13,7 +13,7 @@ type Database struct {
 }
 
 func New(config config.Config) *Database {
-	db, err := gorm.Open(sqlite.Open(config.DbName), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(config.DbUrl), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
