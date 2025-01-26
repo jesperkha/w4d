@@ -29,7 +29,7 @@ func (db *Database) NewRecipe(name string, description string, ingredients map[u
 		Description: description,
 	}
 
-	for id, _ := range ingredients {
+	for id := range ingredients {
 		i := db.GetIngredientById(id)
 		recipe.Ingredients = append(recipe.Ingredients, i)
 	}
