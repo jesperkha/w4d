@@ -19,6 +19,7 @@ func main() {
 
 	log.Println("Connecting to database...")
 	db := database.New(config)
+	defer db.Close()
 
 	log.Println("Attempting to migrate...")
 	if err := db.Migrate(); err != nil {
@@ -26,7 +27,6 @@ func main() {
 	}
 
 	log.Println("Done")
-
 	log.Println("Creating database dump...")
 
 	dumpName := fmt.Sprintf("migrate/dumps/%s.sql", time.Now().Local().Format(time.RFC3339Nano))

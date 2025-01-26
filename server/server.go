@@ -41,6 +41,7 @@ func (s *Server) ListenAndServe(ctx context.Context, wg *sync.WaitGroup) {
 	go func() {
 		<-ctx.Done()
 		s.server.Shutdown(ctx)
+		s.db.Close()
 	}()
 
 	log.Printf("Listening on port %s\n", s.config.Port)

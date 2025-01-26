@@ -26,3 +26,12 @@ func New(config config.Config) *Database {
 func (db *Database) Migrate() error {
 	return db.db.AutoMigrate(&Recipe{})
 }
+
+func (db *Database) Close() error {
+	sqlDb, err := db.db.DB()
+	if err != nil {
+		return err
+	}
+
+	return sqlDb.Close()
+}
