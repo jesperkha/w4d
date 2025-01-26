@@ -30,7 +30,7 @@ func main() {
 	log.Println("Creating database dump...")
 
 	dumpName := fmt.Sprintf("migrate/dumps/%s.sql", time.Now().Local().Format(time.RFC3339Nano))
-	cmd := exec.Command("sqlite3", config.DbName, ".dump recipes")
+	cmd := exec.Command("sqlite3", config.DbName, ".dump")
 
 	file, err := os.Create(dumpName)
 	if err != nil {
