@@ -18,11 +18,10 @@ type Server struct {
 }
 
 func New(config config.Config) *Server {
+	db := database.New(config)
 	r := chi.NewRouter()
 
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "app/index.html")
-	})
+	r.Get("/", indexHandler(db))
 
 	server := &http.Server{
 		Handler: r,
@@ -32,7 +31,7 @@ func New(config config.Config) *Server {
 	return &Server{
 		server: server,
 		config: config,
-		db:     database.New(config),
+		db:     db,
 	}
 }
 
