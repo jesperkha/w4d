@@ -1,4 +1,4 @@
-# What's 4 Dinner?
+# What's For Dinner?
 
 Run database migration and create dump
 
