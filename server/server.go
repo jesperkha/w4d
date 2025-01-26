@@ -24,7 +24,7 @@ func New(config config.Config) *Server {
 
 	server := &http.Server{
 		Handler: r,
-		Addr:    ":" + config.Port,
+		Addr:    config.Port,
 	}
 
 	return &Server{

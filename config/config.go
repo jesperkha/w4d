@@ -17,7 +17,11 @@ func Load() (config Config, err error) {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080"
+		port = ":8080"
+	}
+
+	if port[0] != ':' {
+		port = ":" + port
 	}
 
 	config = Config{
