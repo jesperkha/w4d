@@ -8,11 +8,13 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/jesperkha/w4d/config"
+	"github.com/jesperkha/w4d/database"
 )
 
 type Server struct {
 	server *http.Server
 	config config.Config
+	db     *database.Database
 }
 
 func New(config config.Config) *Server {
@@ -30,6 +32,7 @@ func New(config config.Config) *Server {
 	return &Server{
 		server: server,
 		config: config,
+		db:     database.New(config),
 	}
 }
 
